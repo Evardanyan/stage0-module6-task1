@@ -91,14 +91,19 @@ public class AnimalTest {
             Constructor<?> constructor = getAnimalConstructor();
 
             Method getDescription = Animal.class.getMethod("getDescription");
+            System.out.println("first");
 
             Animal animal = (Animal) constructor.newInstance("red", 3, true);
+            System.out.println("second");
             Assertions.assertEquals("This animal is mostly red. It has 3 paws and a fur.", getDescription.invoke(animal), "Method getDescription() does not work correctly");
 
             animal = (Animal) constructor.newInstance("red", 1, true);
             Assertions.assertEquals("This animal is mostly red. It has 1 paw and a fur.", getDescription.invoke(animal), "Method getDescription() does not work correctly");
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
                  InvocationTargetException e) {
+            Assertions.fail(e.getMessage());
+            Assertions.fail(e.getCause());
+
             Assertions.fail("Some Animal class configuration problems");
         }
     }
